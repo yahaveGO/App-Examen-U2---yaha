@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager manager;
+    public int variable = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +19,43 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Intercambiar
+    public void intercambiar(View view){
+        FragmentA fragmentA= (FragmentA) manager.findFragmentByTag("A");
+        FragmentB fragmentB= (FragmentB) manager.findFragmentByTag("B");
+
+        if (variable == 0) {
+            FragmentA fb = new FragmentA();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.contenedorB, fb, "A");
+            transaction.commit();
+
+            FragmentB fb2 = new FragmentB();
+            FragmentTransaction transaction2 = manager.beginTransaction();
+            transaction2.replace(R.id.contenedorA, fb2, "B");
+            transaction2.commit();
+            variable = 1;
+        }
+        else{
+            FragmentB fb2 = new FragmentB();
+            FragmentTransaction transaction2 = manager.beginTransaction();
+            transaction2.replace(R.id.contenedorB, fb2, "B");
+            transaction2.commit();
+
+            FragmentA fb = new FragmentA();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.contenedorA, fb, "A");
+            transaction.commit();
+            variable = 0;
+        }
+    }
+
+
+
+
+
     //Visualizar A
+    /*
     public void addA(View view){
         FragmentA fragmentA= (FragmentA) manager.findFragmentByTag("A");
         if(fragmentA==null){
@@ -42,18 +79,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"El fragmento B ya existe ",Toast.LENGTH_LONG).show();
         }
     }
-    //Intercambiar
-    public void intercambiar(View view){
-        FragmentA fb=new FragmentA();
-        FragmentTransaction transaction=manager.beginTransaction();
-        transaction.replace(R.id.contenedorB,fb,"A");
-        transaction.commit();
-
-        FragmentB fb2=new FragmentB();
-        FragmentTransaction transaction2=manager.beginTransaction();
-        transaction2.replace(R.id.contenedorA,fb2,"B");
-        transaction2.commit();
-
-    }
+    */
 
 }
